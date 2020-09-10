@@ -2,16 +2,17 @@ function alertLog(message) {
   console.log(message);
 }
 
+const PAYMENT_METHOD = "https://play.google.com/billing";
+
 function trigger(sku,
-    log = alertLog,
-    method = 'https://beer.conn.dev') {
+    log = alertLog) {
   if (!window.PaymentRequest) {
     log("No PaymentRequest object.");
     return;
   }
 
   const supportedInstruments = [{
-    supportedMethods: method,
+    supportedMethods: PAYMENT_METHOD,
     data: {
       sku: sku
     }
@@ -86,8 +87,6 @@ function trigger(sku,
     }, 500);
   }
 }
-
-const PAYMENT_METHOD = "https://play.google.com/billing";
 
 async function getDetails(sku, log) {
   try {

@@ -83,7 +83,7 @@ function log(contents) {
 }
 
 document.getElementById('pay_billing').addEventListener('click', function() {
-  trigger("android.test.purchased", log, "https://play.google.com/billing");
+  trigger("android.test.purchased", log);
 });
 document.getElementById('get_details_test').addEventListener('click', function() {
   getDetails("android.test.purchased", log);
@@ -93,7 +93,7 @@ document.getElementById('ack_test').addEventListener('click', function() {
   acknowledge(token, log);
 });
 document.getElementById('pay_billing_cancel').addEventListener('click', function() {
-  trigger("android.test.canceled", log, "https://play.google.com/billing");
+  trigger("android.test.canceled", log);
 });
 document.getElementById('get_details_cancel').addEventListener('click', function() {
   getDetails("android.test.canceled", log);
