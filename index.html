@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#8888ee">
+    <title>Beer.Conn.Dev</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Peter's Website">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+    <!-- <link rel="payment-method-manifest" href="payment-manifest.json"/> -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="assets/icon-512x512.png" />
+    <script type="text/javascript" src="js/payments.js" async></script>
+  </head>
+  <body class="pa2">
+    <div class="center measure-wide br2 mh2 mt2 ph1 pv2 avenir tc bg-lightest-blue">
+      <h1 class="f1">Buy Peter a Beer</h1>
+      <div class="cf ma2">
+        <div class="fl w-60 tc pa2">
+          <h2>Play Billing Test SKU</h2>
+          <p>This SKU will report as being successfully purchased.</p>
+          <button class="f6 bn ph3 pv2 mb2 dib white bg-dark-blue" id="get_details_test">
+            Get Details
+          </button><br />
+          <button class="f6 bn ph3 pv2 mb2 dib white bg-dark-blue" id="pay_billing">
+            Buy
+          </button><br />
+          <button class="f6 bn ph3 pv2 mb2 dib white bg-dark-blue" id="ack_test">
+            Acknowledge
+          </button>
+        </div>
+        <img src="assets/moor-300.jpg" width="225" height="300"
+            class="br2 fl w-40 h-auto bg-dark-green">
+      </div>
+
+      <div class="cf ma2">
+        <img src="assets/bbno-300.jpg" width="225" height="300"
+            class="br2 fl w-40 h-auto bg-black">
+        <div class="fl w-60 tc pa2">
+          <h2>Play Billing Test SKU</h2>
+          <p>This SKU will report as being cancelled.</p>
+          <button class="f6 bn ph3 pv2 mb2 dib white bg-dark-blue" id="get_details_cancel">
+            Get Details
+          </button><br />
+          <button class="f6 bn ph3 pv2 mb2 dib white bg-dark-blue" id="pay_billing_cancel">
+            Buy
+          </button><br />
+          <button class="f6 bn ph3 pv2 mb2 dib white bg-dark-blue" id="ack_cancel">
+            Acknowledge
+          </button>
+        </div>
+      </div>
+
+      <!--
+      <div class="cf ma2">
+        <div class="fl w-60 tc pa2">
+          <h2>Actual SKU</h2>
+          <p>This is a real SKU use by my TWA.</p>
+          <button class="f6 bn ph3 pv2 mb2 dib white bg-dark-blue" id="get_details">
+            Get Details
+          </button>
+          <br />
+          <button class="f6 bn ph3 pv2 mb2 dib white bg-dark-blue" id="buy_sku">
+            Buy
+          </button>
+        </div>
+        <img src="assets/peckham-300.jpg" width="225" height="300"
+            class="br2 fl w-40 h-auto bg-orange">
+      </div>
+      -->
+
+    </div>
+
+    <div class="br2 mh2 mt2 ph3 pv1 bg-light-yellow avenir">
+      <h1 class="f3">Logs</h1>
+      <pre id="logs" class="pa2"></pre>
+    </div>
+
+<script>
+const logField = document.getElementById('logs');
+
+function log(contents) {
+  logField.innerHTML += contents + "\n";
+}
+
+document.getElementById('pay_billing').addEventListener('click', function() {
+  trigger("android.test.purchased", log, "https://play.google.com/billing");
+});
+document.getElementById('get_details_test').addEventListener('click', function() {
+  getDetails("android.test.purchased", log);
+});
+document.getElementById('ack_test').addEventListener('click', function() {
+  const token = "inapp:com.google.androidbrowserhelper.demos.playbilling:android.test.purchased";
+  acknowledge(token, log);
+});
+document.getElementById('pay_billing_cancel').addEventListener('click', function() {
+  trigger("android.test.canceled", log, "https://play.google.com/billing");
+});
+document.getElementById('get_details_cancel').addEventListener('click', function() {
+  getDetails("android.test.canceled", log);
+});
+document.getElementById('ack_cancel').addEventListener('click', function() {
+  const token = "inapp:com.google.androidbrowserhelper.demos.playbilling:android.test.canceled";
+  acknowledge(token, log);
+});
+// document.getElementById('get_details').addEventListener('click', function() {
+//   getDetails("my_sku", log);
+// });
+// Document.getElementById('buy_sku').addEventListener('click', function() {
+//   log("Not implemented yet...");
+// });
+</script>
+  </body>
+</html>
